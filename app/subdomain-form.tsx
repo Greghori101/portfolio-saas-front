@@ -20,7 +20,7 @@ import {
   EmojiPickerSearch,
   EmojiPickerFooter
 } from '@/components/ui/emoji-picker';
-import { createSubdomainAction } from '@/app/actions';
+import { createSubdomainAction } from '@/app/actions/domains';
 import { rootDomain } from '@/lib/utils';
 
 type CreateState = {
