@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { SubdomainForm } from './subdomain-form'
 import { rootDomain } from '@/lib/utils'
 import {getProviders, useSession, signIn, signOut } from 'next-auth/react'
+import { SubdomainForm } from './[locale]/auth/register'
 
 export default async function HomePage() {
   const providers = await getProviders()

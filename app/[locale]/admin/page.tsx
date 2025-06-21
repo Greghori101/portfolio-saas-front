@@ -1,7 +1,7 @@
 import { getAllSubdomains } from '@/lib/subdomains';
 import type { Metadata } from 'next';
-import { AdminDashboard } from './dashboard';
 import { rootDomain } from '@/lib/utils';
+import { AdminDashboard } from '@/components/admin/dashboard'
 
 export const metadata: Metadata = {
   title: `Admin Dashboard | ${rootDomain}`,

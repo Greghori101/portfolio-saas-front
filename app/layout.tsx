@@ -19,6 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <head>
+        <link
+          href='./assets/fontawesome/css/ all.min.css'
+          rel='stylesheet'
+        />
+      </head>
       <body className={`${geistSans.variable} antialiased`}>{children}</body>
     </html>
   )

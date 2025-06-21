@@ -197,3 +197,11 @@
 .emoji-picker-container .epr-category-nav button:hover {
   opacity: 0.8;
 }
+
+.liquid-glass {
+  @apply backdrop-blur-2xl bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 shadow-xl dark:shadow-lg transition hover:scale-[1.01];
+}
+
+.frosted-glass {
+  @apply backdrop-blur-md bg-white/30 dark:bg-white/10 border border-white/10 dark:border-white/5 shadow-lg dark:shadow-md transition hover:shadow-2xl dark:hover:shadow-xl;
+}
