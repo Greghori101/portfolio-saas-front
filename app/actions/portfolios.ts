@@ -4,7 +4,7 @@ import { fetcher } from '@/lib/fetch'
 import { portfolioSchema } from '@/schemas/portfolio'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
-import { ActionResponse } from '../types/actions'
+import { ActionResponse } from '@/types/actions'
 
 
 export async function createPortfolio(_: ActionResponse, formData: FormData): Promise<ActionResponse> {
