@@ -49,8 +49,8 @@ function extractSubdomain(request: NextRequest): string | null {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const subdomain = extractSubdomain(request)
-
   if (subdomain) {
+
     // Block access to admin page from subdomains
     if (pathname.startsWith('/admin')) {
       return NextResponse.redirect(new URL('/', request.url))
@@ -76,6 +76,5 @@ export const config = {
     '/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt|function).*)',
     '/((?!api|_next|[\\w-]+\\.\\w+).*)',
     '/',
-    '/account',
   ],
 }

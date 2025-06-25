@@ -1,12 +1,16 @@
-'use client'
+"use client";
 
-import { I18nProviderClient } from '@/locales/client'
-import { PropsWithChildren } from 'react'
+import { I18nProviderClient } from "@/locales/client";
+import { SessionProvider } from "next-auth/react";
+import { PropsWithChildren } from "react";
+import { Provider } from "jotai";
 
 export const Providers = (props: PropsWithChildren<{ locale: string }>) => {
-  return (
-    <I18nProviderClient locale={props.locale}>
-      {props.children}
-    </I18nProviderClient>
-  )
-}
+	return (
+		<SessionProvider>
+			<I18nProviderClient locale={props.locale}>
+				<Provider>{props.children}</Provider>
+			</I18nProviderClient>
+		</SessionProvider>
+	);
+};
