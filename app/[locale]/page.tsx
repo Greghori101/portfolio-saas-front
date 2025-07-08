@@ -1,11 +1,13 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { User, Edit, Rocket, Users, Link, Palette, Code, Star, Check, ArrowRight, Globe, Zap, Shield, Smartphone, BarChart3, Mail, Github, Twitter, Linkedin } from "lucide-react";
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { User, Edit, Rocket, Users, Link, Palette, Code, Star, Check, ArrowRight, Globe, Zap, Shield, Smartphone, BarChart3, Mail, Github, Twitter, Linkedin } from "lucide-react"
+import { getCurrentLocale } from "@/locales/server"
 
-export default function Page() {
+export default async function Page() {
+	const locale = await getCurrentLocale()
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
 			{/* Navigation */}
@@ -27,10 +29,14 @@ export default function Page() {
 						<a href="#pricing" className="text-gray-600 hover:text-gray-900 transition-colors">
 							Pricing
 						</a>
-						<Button variant="outline" className="border-blue-200 text-blue-600 hover:bg-blue-50">
-							Sign In
-						</Button>
-						<Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
+						<Link href={`${locale}/auth/login`}>
+							<Button variant="outline" className="border-blue-200 text-blue-600 hover:bg-blue-50">
+								Sign In
+							</Button>
+						</Link>
+						<Link href={`${locale}/auth/login`}>
+							<Button className="bg-blue-600 hover:bg-blue-700">Get Started</Button>
+						</Link>
 					</div>
 				</div>
 			</nav>
@@ -662,5 +668,5 @@ export default function Page() {
 				</div>
 			</footer>
 		</div>
-	);
+	)
 }
