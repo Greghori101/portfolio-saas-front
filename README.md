@@ -88,3 +88,126 @@ For custom domains, make sure to:
 
 1. Add your root domain to Vercel
 2. Set up a wildcard DNS record (`*.yourdomain.com`) on Vercel
+
+```
+portfolio-saas-front
+├─ app
+│  ├─ actions
+│  │  ├─ domains.ts
+│  │  ├─ portfolios.ts
+│  │  ├─ subscriptions.ts
+│  │  └─ themes.ts
+│  ├─ api
+│  │  ├─ auth
+│  │  │  ├─ login
+│  │  │  │  └─ route.ts
+│  │  │  ├─ logout
+│  │  │  │  └─ route.ts
+│  │  │  ├─ me
+│  │  │  │  └─ route.ts
+│  │  │  ├─ register
+│  │  │  │  └─ route.ts
+│  │  │  └─ [...nextauth].ts
+│  │  ├─ portfolios
+│  │  │  ├─ route.ts
+│  │  │  └─ [id]
+│  │  │     └─ route.ts
+│  │  ├─ subscriptions
+│  │  │  ├─ route.ts
+│  │  │  └─ [id]
+│  │  │     └─ route.ts
+│  │  └─ themes
+│  │     ├─ route.ts
+│  │     └─ [id]
+│  │        └─ route.ts
+│  ├─ assets
+│  │  ├─ fontawesome
+│  │  │  ├─ css
+│  │  │  │  ├─ all.css
+│  │  │  │  ├─ all.min.css
+│  │  │  │  ├─ brands.css
+│  │  │  │  ├─ brands.min.css
+│  │  │  │  ├─ fontawesome.css
+│  │  │  │  ├─ fontawesome.min.css
+│  │  │  │  ├─ regular.css
+│  │  │  │  ├─ regular.min.css
+│  │  │  │  ├─ solid.css
+│  │  │  │  ├─ solid.min.css
+│  │  │  │  ├─ svg-with-js.css
+│  │  │  │  ├─ svg-with-js.min.css
+│  │  │  │  ├─ v4-font-face.css
+│  │  │  │  ├─ v4-font-face.min.css
+│  │  │  │  ├─ v4-shims.css
+│  │  │  │  ├─ v4-shims.min.css
+│  │  │  │  ├─ v5-font-face.css
+│  │  │  │  └─ v5-font-face.min.css
+│  │  │  └─ LICENSE.txt
+│  │  └─ img
+│  │     └─ design
+│  │        ├─ dashboard.png
+│  │        ├─ form.png
+│  │        ├─ landing-page-contrast.png
+│  │        ├─ landing-page.png
+│  │        └─ register.png
+│  ├─ domains
+│  │  └─ [subdomain]
+│  │     └─ page.tsx
+│  ├─ favicon.ico
+│  ├─ globals.css
+│  └─ [locale]
+│     ├─ admin
+│     │  ├─ layout.tsx
+│     │  └─ page.tsx
+│     ├─ auth
+│     │  ├─ callback
+│     │  │  └─ page.tsx
+│     │  ├─ login
+│     │  │  └─ page.tsx
+│     │  └─ register
+│     │     └─ page.tsx
+│     ├─ layout.tsx
+│     ├─ page.tsx
+│     └─ providers.tsx
+├─ components
+│  ├─ auth
+│  │  ├─ signin-card.tsx
+│  │  └─ signout-button.tsx
+│  └─ ui
+│     ├─ badge.tsx
+│     ├─ button.tsx
+│     ├─ card.tsx
+│     ├─ dialog.tsx
+│     ├─ emoji-picker.tsx
+│     ├─ input.tsx
+│     ├─ label.tsx
+│     └─ popover.tsx
+├─ components.json
+├─ hooks
+├─ lib
+│  ├─ auth.ts
+│  ├─ endpoints.ts
+│  ├─ fetch.ts
+│  ├─ i18n.config.ts
+│  ├─ jotai.ts
+│  └─ utils.ts
+├─ locales
+│  ├─ client.ts
+│  ├─ en.ts
+│  ├─ fr.ts
+│  └─ server.ts
+├─ middleware.ts
+├─ next.config.ts
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.mjs
+├─ README.md
+├─ schemas
+│  ├─ auth.ts
+│  ├─ portfolio.ts
+│  ├─ subscription.ts
+│  └─ theme.ts
+├─ tsconfig.json
+└─ types
+   └─ actions.ts
+
+```

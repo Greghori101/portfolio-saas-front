@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { User, Edit, Rocket, Users, Link, Palette, Code, Star, Check, ArrowRight, Globe, Zap, Shield, Smartphone, BarChart3, Mail, Github, Twitter, Linkedin } from "lucide-react"
+import { User, Edit, Rocket, Users, Palette, Code, Star, Check, ArrowRight, Globe, Zap, Shield, Smartphone, BarChart3, Mail, Github, Twitter, Linkedin, LinkIcon } from "lucide-react"
 import { getCurrentLocale } from "@/locales/server"
+import Link from "next/link"
 
 export default async function Page() {
 	const locale = await getCurrentLocale()
@@ -254,7 +255,7 @@ export default async function Page() {
 						{
 							title: "Custom Domains",
 							description: "Use your own domain or get a free subdomain. SSL certificates and CDN included for lightning-fast loading.",
-							icon: Link,
+							icon: LinkIcon,
 							color: "from-green-500 to-green-600",
 						},
 						{

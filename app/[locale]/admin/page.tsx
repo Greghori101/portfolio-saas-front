@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { rootDomain } from '@/lib/utils';
-import { AdminDashboard } from '@/components/admin/dashboard'
+import { Dashboard } from '@/components/admin/dashboard'
 
 export const metadata: Metadata = {
   title: `Admin Dashboard | ${rootDomain}`,
@@ -12,7 +12,7 @@ export default async function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <AdminDashboard tenants={[]} />
+      <Dashboard tenants={[]} />
     </div>
   );
 }

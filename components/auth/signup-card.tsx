@@ -81,7 +81,7 @@ const getProviderButtonStyle = (providerId: string) => {
 	}
 }
 
-export function SignInCard({ providers }: { providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null }) {
+export function SignUpCard({ providers }: { providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null }) {
 	const locale = useCurrentLocale()
 	const [isPending, startTransition] = useTransition()
 	const [error, setError] = useState<string | null>(null)

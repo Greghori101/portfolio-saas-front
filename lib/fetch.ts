@@ -1,67 +1,95 @@
-type FetchOptions = {
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+import { cookies } from "next/headers"
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api"
+
+type FetcherOptions = {
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+  query?: Record<string, string | number | boolean | undefined>
+  body?: any
   headers?: HeadersInit
-  query?: Record<string, string | number | boolean>
-  body?: Record<string, any> | FormData
+  withAuth?: boolean
   token?: string | null
-  next?: NextFetchRequestConfig  // for SSR/ISR caching control
+  cache?: RequestCache
+  next?: number | null
+  signal?: AbortSignal | null
 }
 
 export async function fetcher<T = any>(
   endpoint: string,
-  options: FetchOptions = {}
-): Promise<T> {
-  const {
-    method = 'GET',
+  {
+    method = "GET",
+    query = {},
+    body = null,
     headers = {},
-    query,
-    body,
-    token,
-    next
-  } = options
+    withAuth = false,
+    token = null,
+    cache = "no-store",
+    next = null,
+    signal = null,
+  }: FetcherOptions = {}
+): Promise<T> {
+  const queryString = Object.entries(query)
+    .filter(([, v]) => v !== undefined)
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(String(v))}`)
+    .join("&")
 
-  const baseUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || ''
-  const url = new URL(endpoint, baseUrl)
+  const url = `${BASE_URL}${endpoint}${queryString ? `?${queryString}` : ""}`
 
-  // Add query params
-  if (query) {
-    Object.entries(query).forEach(([key, value]) =>
-      url.searchParams.append(key, String(value))
-    )
+  const defaultHeaders: HeadersInit = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
   }
 
-  const fetchOptions: RequestInit = {
+  if (withAuth) {
+    const cookieStore = await cookies()
+    const finalToken = token || cookieStore.get("token")?.value
+    if (finalToken) {
+      defaultHeaders["Authorization"] = `Bearer ${finalToken}`
+    }
+  }
+
+  const options: RequestInit & { next?: { revalidate: number } } = {
     method,
     headers: {
+      ...defaultHeaders,
       ...headers,
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(body && !(body instanceof FormData) ? { 'Content-Type': 'application/json' } : {})
     },
-    ...(body ? { body: body instanceof FormData ? body : JSON.stringify(body) } : {})
+    cache,
+    signal: signal ?? undefined,
   }
 
-  // Add Next.js-specific options if in server component
-  if (next) {
-    // @ts-ignore
-    fetchOptions.next = next
+  if (body) {
+    options.body = JSON.stringify(body)
+  }
+
+  if (next !== null) {
+    options.next = { revalidate: next }
   }
 
   try {
-    const res = await fetch(url.toString(), fetchOptions)
-
+    const res = await fetch(url, options)
     if (!res.ok) {
-      const errorBody = await res.text()
-      throw new Error(`Fetch error: ${res.status} ${res.statusText} — ${errorBody}`)
+      const errData = await parseResponse(res)
+      const error = new Error((errData as any)?.message || res.statusText) as Error & {
+        status?: number
+        data?: any
+      }
+      error.status = res.status
+      error.data = errData
+      throw error
     }
 
-    const contentType = res.headers.get('content-type')
-    if (contentType && contentType.includes('application/json')) {
-      return res.json() as Promise<T>
-    } else {
-      return res.text() as unknown as T
-    }
-  } catch (err: any) {
-    console.error(`[fetcher] ${method} ${url}:`, err.message)
-    throw err
+    return await parseResponse(res)
+  } catch (error) {
+    console.error(`[fetcher] ${method} ${url} →`, error)
+    throw error
   }
+}
+
+async function parseResponse(res: Response): Promise<any> {
+  const contentType = res.headers.get("content-type")
+  if (contentType?.includes("application/json")) {
+    return res.json()
+  }
+  return res.text()
 }

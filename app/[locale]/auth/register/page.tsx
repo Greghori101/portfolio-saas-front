@@ -1,7 +1,8 @@
-"use client"
+import { SignUpCard } from "@/components/auth/signup-card"
+import { getProviders } from "next-auth/react"
 
-import { SignInCard } from "@/components/auth/signin-card"
+export default async () => {
+	const providers = await getProviders()
 
-export default () => {
-	return <SignInCard />
+	return <SignUpCard providers={providers} />
 }
